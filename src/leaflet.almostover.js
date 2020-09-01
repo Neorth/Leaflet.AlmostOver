@@ -140,6 +140,9 @@ L.Handler.AlmostOver = L.Handler.extend({
             this._map.fire('almost:' + e.type, {layer: closest.layer,
                                                 latlng: closest.latlng});
         }
+        else {
+            this._map.fire('almost:miss');
+        }
     },
 });
 
