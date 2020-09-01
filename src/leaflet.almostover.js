@@ -115,20 +115,25 @@ L.Handler.AlmostOver = L.Handler.extend({
         if (closest) {
             if (!this._previous) {
                 this._map.fire('almost:over', {layer: closest.layer,
-                                               latlng: closest.latlng});
+                                               latlng: closest.latlng,
+                                               generatingEvent: e});
             }
             else if (L.stamp(this._previous.layer) != L.stamp(closest.layer)) {
-                this._map.fire('almost:out', {layer: this._previous.layer});
+                this._map.fire('almost:out', {layer: this._previous.layer,
+                                              generatingEvent: e});
                 this._map.fire('almost:over', {layer: closest.layer,
-                                               latlng: closest.latlng});
+                                               latlng: closest.latlng,
+                                               generatingEvent: e});
             }
 
             this._map.fire('almost:move', {layer: closest.layer,
-                                           latlng: closest.latlng});
+                                           latlng: closest.latlng,
+                                           generatingEvent: e});
         }
         else {
             if (this._previous) {
-                this._map.fire('almost:out', {layer: this._previous.layer});
+                this._map.fire('almost:out', {layer: this._previous.layer,
+                                              generatingEvent: e});
             }
         }
         this._previous = closest;
@@ -138,7 +143,8 @@ L.Handler.AlmostOver = L.Handler.extend({
         var closest = this.getClosest(e.latlng);
         if (closest) {
             this._map.fire('almost:' + e.type, {layer: closest.layer,
-                                                latlng: closest.latlng});
+                                                latlng: closest.latlng,
+                                                generatingEvent: e});
         }
     },
 });
